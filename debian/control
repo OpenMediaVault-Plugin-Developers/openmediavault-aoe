@@ -1,0 +1,16 @@
+Source: openmediavault-aoe
+Section: net
+Priority: optional
+Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+XB-Plugin-Section: filesystems
+
+Package: openmediavault-aoe
+Architecture: all
+Depends: aoetools,
+         vblade
+         glusterfs-client,
+         openmediavault (>= 4.1.2),
+         ${misc:Depends}
+Description: ATA-over-ethernet plugin for OpenMediaVault
