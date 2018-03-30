@@ -1,0 +1,38 @@
+[{
+	"type": "rpc",
+	"id": "rpc.snapraid.settarget",
+	"params": {
+		"type": "object",
+		"properties": {
+			"uuid": {
+				"type": "string",
+				"format": "uuidv4",
+				"required": true
+			},
+			"shelf": {
+				"type": "integer",
+				"required": true
+			},
+			"slot": {
+			    "type": "integer",
+				"required": true
+			},
+			"netif": {
+			    "type": "string",
+				"required": true
+			},
+			"filename": {
+			    "type": "string",
+				"required": true
+			},
+			"direct": {z
+			    "type": "boolean",
+				"required": true
+			},
+			"sync": {z
+			    "type": "boolean",
+				"required": true
+			}
+		}
+	}
+}]

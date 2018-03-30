@@ -1,0 +1,46 @@
+{
+	"type": "config",
+	"id": "conf.service.aoe",
+	"title": "AoE",
+	"queryinfo": {
+		"xpath": "//services/aoe",
+		"iterable": false
+	},
+	"properties": {
+		"targets": {
+			"type": "object",
+			"properties": {
+				"target": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"uuid": {
+								"type": "string",
+								"format": "uuidv4"
+							},
+							"shelf": {
+								"type": "integer"
+							},
+							"slot": {
+								"type": "integer"
+							},
+							"netif": {
+								"type": "string"
+							},
+							"filename": {
+								"type": "string"
+							},
+							"direct": {
+								"type": "boolean"
+							},
+							"sync": {
+								"type": "boolean"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
