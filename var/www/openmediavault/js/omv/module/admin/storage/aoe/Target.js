@@ -33,26 +33,31 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
 
     hideResetButton: true,
 
-    rpcService: 'aoe',
+    rpcService: 'AOE',
     rpcGetMethod: 'getTarget',
     rpcSetMethod: 'setTarget',
 
     getFormItems: function() {
         return [{
-            xtype: 'textfield',
-            name: 'shelf',
-            fieldLabel: _('Shelf'),
+            xtype: "numberfield",
+            name: "shelf",
+            fieldLabel: _("Shelf"),
+            minValue: 1,
+            allowDecimals: false,
             allowBlank: false,
+            value: 1,
             plugins: [{
                 ptype: 'fieldinfo',
                 text: _('This should be the shelf address (major AoE address) of the AoE device to create.')
             }]
         },{
-            xtype: 'textfield',
-            name: 'slot',
-            fieldLabel: _('Slot'),
-            value: '',
+            xtype: "numberfield",
+            name: "slot",
+            fieldLabel: _("Slot"),
+            minValue: 1,
+            allowDecimals: false,
             allowBlank: false,
+            value: 1,
             plugins: [{
                 ptype: 'fieldinfo',
                 text: _('This should be the slot address (minor AoE address) of the AoE device to create.')

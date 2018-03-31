@@ -42,25 +42,21 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
     },{
         xtype: "textcolumn",
         header: _('Shelf'),
-        flex: 1,
         sortable: true,
         dataIndex: 'shelf'
     },{
         xtype: "textcolumn",
         header: _('Slot'),
-        flex: 1,
         sortable: true,
         dataIndex: 'slot'
     },{
         xtype: "textcolumn",
         header: _('NIC'),
-        flex: 1,
         sortable: true,
         dataIndex: 'netif'
     },{
         xtype: "textcolumn",
         header: _('Filename'),
-        flex: 1,
         sortable: true,
         dataIndex: 'filename'
     }],
@@ -89,10 +85,10 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         proxy: {
             type: 'rpc',
             rpcData: {
-                'service': 'Aoe',
+                'service': 'AOE',
                 'method': 'getTargetList'
             }
-        }]
+        }
     }),
 
     onAddButton: function() {
@@ -128,7 +124,7 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
             scope: this,
             callback: this.onDeletion,
             rpcData: {
-                service: 'aoe',
+                service: 'AOE',
                 method: 'delete',
                 params: {
                     uuid: record.get('uuid')

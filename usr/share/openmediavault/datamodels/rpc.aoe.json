@@ -25,11 +25,11 @@
 			    "type": "string",
 				"required": true
 			},
-			"direct": {z
+			"direct": {
 			    "type": "boolean",
 				"required": true
 			},
-			"sync": {z
+			"sync": {
 			    "type": "boolean",
 				"required": true
 			}

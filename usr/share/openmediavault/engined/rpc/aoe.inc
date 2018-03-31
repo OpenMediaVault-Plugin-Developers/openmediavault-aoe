@@ -43,7 +43,7 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $objects = $db->getAssoc("conf.service.aoe.target");
         // Filter the result.
-        return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
+        return $this->applyFilter($objects, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
     }
 
