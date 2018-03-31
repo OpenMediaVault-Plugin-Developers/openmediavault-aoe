@@ -22,11 +22,37 @@ namespace OMV\System\Storage;
 
 class StorageDeviceAOE extends StorageDevice
 {
+    public function getModel()
+    {
+        return 'etherd';
+    }
+
+    public function getVendor()
+    {
+        return 'AoE';
+    }
+
+    public function getSerialNumber()
+    {
+        $serial = explode('/', $this->getPreferredDeviceFile());
+        return $serial[3];
+    }
+
+    public function getDescription()
+    {
+        $model = $this->getModel();
+        return sprintf('%s [%s, %s]',
+            !empty($model) ? $model : gettext("n/a"),
+            $this->getPreferredDeviceFile(),
+            binary_format($this->getSize())
+        );
+    }
+
     public function isRotational()
     {
-		return FALSE;
-	}
-    
+        return FALSE;
+    }
+
     public function hasSmartSupport()
     {
         return FALSE;
