@@ -34,7 +34,21 @@ while [ ${index} -gt 0 ]; do
     slot=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/slot")
     netif=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/netif")
     filename=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/filename")
+    direct=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/direct")
+    sync=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/sync")
     service="${SYSTEMD_DIR}/aoe-${shelf}-${slot}.service"
+
+    if [ "${direct}" = "1" ]; then
+        d="-d "
+    else
+        d=""
+    fi
+
+    if [ "${sync}" = "1" ]; then
+        s="-s "
+    else
+        s=""
+    fi
 
     cat > ${service} << EOF
 [Unit]
@@ -43,7 +57,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/sbin/vbladed ${shelf} ${slot} ${netif} ${filename}
+ExecStart=/usr/sbin/vbladed ${d}${s}${shelf} ${slot} ${netif} ${filename}
 RemainAfterExit=true
 
 [Install]

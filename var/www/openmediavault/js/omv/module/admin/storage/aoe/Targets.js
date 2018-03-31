@@ -59,6 +59,7 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         xtype: 'textcolumn',
         header: _('Filename'),
         sortable: true,
+        flex: 1,
         dataIndex: 'filename'
     }],
 

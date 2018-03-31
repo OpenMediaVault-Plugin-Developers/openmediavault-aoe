@@ -112,19 +112,13 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
             name: 'direct',
             fieldLabel: _('Direct'),
             checked: false,
-            plugins: [{
-                ptype: 'fieldinfo',
-                text: _('Selects O_DIRECT mode for accessing the underlying block device.')
-            }]
+            boxLabel: _('Selects O_DIRECT mode for accessing the underlying block device.')
         },{
             xtype: 'checkbox',
             name: 'sync',
             fieldLabel: _('Sync'),
             checked: false,
-            plugins: [{
-                ptype: 'fieldinfo',
-                text: _('Selects O_SYNC mode for accessing the underlying block device, so all writes are committed to disk before returning to the client.')
-            }]
+            boxLabel: _('Selects O_SYNC mode for accessing the underlying block device, so all writes are committed to disk before returning to the client.')
         }];
     }
 });

@@ -64,12 +64,28 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, 'rpc.aoe.settarget');
+        // Verify that shelf and slot are unique
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get('conf.service.aoe.target');
+        foreach ($objects as $objectk => $objectv) {
+            if (($objectv->get('shelf') == $params['shelf']) &&
+                ($objectv->get('slot') == $params['slot']))
+                throw new \OMV\Exception(
+                    "Shelf %d: Slot %d already in use.",
+                    $params['shelf'], $params['slot']
+                );
+        }
+        // Verify that file exists
+        if (!file_exists($params['filename'])) {
+            throw new \OMV\Exception(
+                "File does not exist '%s': %s",
+                $params['filename'], $error['message']
+            );
+        }
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject('conf.service.aoe.target');
         $object->setAssoc($params);
         // Set the configuration object.
-        $isNew = $object->isNew();
-        $db = \OMV\Config\Database::getInstance();
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
