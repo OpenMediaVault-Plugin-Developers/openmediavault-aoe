@@ -66,22 +66,13 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         autoLoad: true,
         model: OMV.data.Model.createImplicit({
             idProperty: 'uuid',
-            fields: [{
-                name: 'uuid',
-                type: 'string'
-            },{
-                name: 'shelf',
-                type: 'integer'
-            },{
-                name: 'slot',
-                type: 'integer'
-            },{
-                name: 'netif',
-                type: 'string'
-            },{
-                name: 'filename',
-                type: 'string'
-            }]
+            fields: [
+                { name: 'uuid', type: 'string' },
+                { name: 'shelf', type: 'integer' },
+                { name: 'slot', type: 'integer' },
+                { name: 'netif', type: 'string' },
+                { name: 'filename', type: 'string' }
+            ]
         }),
         proxy: {
             type: 'rpc',
@@ -96,7 +87,7 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         var me = this;
         var items = me.callParent(arguments);
 
-        Ext.Array.insert(items, 2, [{
+        Ext.Array.insert(items, 3, [{
             xtype: 'button',
             text: _('Discover'),
             icon: 'images/search.png',
