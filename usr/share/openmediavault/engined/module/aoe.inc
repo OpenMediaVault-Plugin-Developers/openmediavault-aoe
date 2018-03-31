@@ -23,18 +23,18 @@ class OMVModuleAoe extends \OMV\Engine\Module\ServiceAbstract
 {
     public function getName()
     {
-        return "aoe";
+        return 'aoe';
     }
 
-    public function shouldStart() { return [ "systemd" ]; }
+    public function shouldStart() { return [ 'systemd' ]; }
 
     public function stopService() {
-        $this->execTasks("delete");
+        $this->execTasks('delete');
     }
 
     public function startService() {
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->get("conf.service.aoe.target");
+        $objects = $db->get('conf.service.aoe.target');
         foreach ($objects as $objectk => $objectv) {
             $serviceName = sprintf('aoe-%s-%s.service',
                 $objectv->get('shelf'),
@@ -47,7 +47,7 @@ class OMVModuleAoe extends \OMV\Engine\Module\ServiceAbstract
     }
 
     final public function onDelete($type, $path, $object) {
-        $this->addTask("delete", "deleteEntry", $object);
+        $this->addTask('delete', 'deleteEntry', $object);
     }
 
     final public function deleteEntry($params) {
@@ -69,19 +69,19 @@ class OMVModuleAoe extends \OMV\Engine\Module\ServiceAbstract
     {
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_DELETE,
-            "org.openmediavault.conf.service.aoe.target",
-            [ $this, "setDirty" ]
+            'org.openmediavault.conf.service.aoe.target',
+            [ $this, 'setDirty' ]
         );
         $dispatcher->addListener(
             OMV_NOTIFY_DELETE,
-            "org.openmediavault.conf.service.aoe.target",
-            [ $this, "onDelete" ]
+            'org.openmediavault.conf.service.aoe.target',
+            [ $this, 'onDelete' ]
         );
         $moduleMngr = \OMV\Engine\Module\Manager::getInstance();
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_DELETE,
-            "org.openmediavault.conf.service.aoe.target",
-            [ $moduleMngr->getModule("systemd"), "setDirty" ]
+            'org.openmediavault.conf.service.aoe.target',
+            [ $moduleMngr->getModule('systemd'), 'setDirty' ]
         );
     }
 }

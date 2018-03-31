@@ -7,6 +7,13 @@ set -e
 
 case "$1" in
     configure)
+        # add aoe module and load it
+        cat "aoe aoe_deadsecs=10" > /etc/modules-load.d/aoe.conf
+        modprobe aoe aoe_deadsecs=10
+
+        # discover any AoE storage devices
+        aoe-discover
+
         # Activate package triggers. These triggers are only set during the
         # package installation.
         dpkg-trigger update-fixperms

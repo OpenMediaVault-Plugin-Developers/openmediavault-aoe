@@ -39,9 +39,9 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
 
     getFormItems: function() {
         return [{
-            xtype: "numberfield",
-            name: "shelf",
-            fieldLabel: _("Shelf"),
+            xtype: 'numberfield',
+            name: 'shelf',
+            fieldLabel: _('Shelf'),
             minValue: 1,
             allowDecimals: false,
             allowBlank: false,
@@ -51,9 +51,9 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
                 text: _('This should be the shelf address (major AoE address) of the AoE device to create.')
             }]
         },{
-            xtype: "numberfield",
-            name: "slot",
-            fieldLabel: _("Slot"),
+            xtype: 'numberfield',
+            name: 'slot',
+            fieldLabel: _('Slot'),
             minValue: 1,
             allowDecimals: false,
             allowBlank: false,
@@ -63,36 +63,36 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
                 text: _('This should be the slot address (minor AoE address) of the AoE device to create.')
             }]
         },{
-            xtype: "combo",
-            name: "netif",
-            fieldLabel: _("NIC"),
-            emptyText: _("Select a device ..."),
-            queryMode: "local",
-            store: Ext.create("OMV.data.Store", {
+            xtype: 'combo',
+            name: 'netif',
+            fieldLabel: _('NIC'),
+            emptyText: _('Select a device ...'),
+            queryMode: 'local',
+            store: Ext.create('OMV.data.Store', {
                 autoLoad: true,
                 model: OMV.data.Model.createImplicit({
-                    idProperty: "devicename",
+                    idProperty: 'devicename',
                     fields: [
-                        { name: "devicename", type: "string" }
+                        { name: 'devicename', type: 'string' }
                     ]
                 }),
                 proxy: {
-                    type: "rpc",
+                    type: 'rpc',
                     rpcData: {
-                        service: "Network",
-                        method: "getEthernetCandidates"
+                        service: 'Network',
+                        method: 'getEthernetCandidates'
                     }
                 },
                 sorters: [{
-                    direction: "ASC",
-                    property: "devicename"
+                    direction: 'ASC',
+                    property: 'devicename'
                 }]
             }),
-            displayField: "devicename",
-            valueField: "devicename",
+            displayField: 'devicename',
+            valueField: 'devicename',
             allowBlank: false,
             forceSelection: true,
-            triggerAction: "all",
+            triggerAction: 'all',
             plugins: [{
                 ptype: 'fieldinfo',
                 text: _('The name of the ethernet network interface to use for AoE communications.')

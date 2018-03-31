@@ -36,27 +36,27 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
     reloadOnActivate: true,
 
     columns: [{
-        xtype: "textcolumn",
+        xtype: 'textcolumn',
         header: _('UUID'),
         hidden: true,
         dataIndex: 'uuid'
     },{
-        xtype: "textcolumn",
+        xtype: 'textcolumn',
         header: _('Shelf'),
         sortable: true,
         dataIndex: 'shelf'
     },{
-        xtype: "textcolumn",
+        xtype: 'textcolumn',
         header: _('Slot'),
         sortable: true,
         dataIndex: 'slot'
     },{
-        xtype: "textcolumn",
+        xtype: 'textcolumn',
         header: _('NIC'),
         sortable: true,
         dataIndex: 'netif'
     },{
-        xtype: "textcolumn",
+        xtype: 'textcolumn',
         header: _('Filename'),
         sortable: true,
         dataIndex: 'filename'
@@ -92,6 +92,21 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         }
     }),
 
+    getTopToolbarItems : function() {
+        var me = this;
+        var items = me.callParent(arguments);
+
+        Ext.Array.insert(items, 2, [{
+            xtype: 'button',
+            text: _('Discover'),
+            icon: 'images/search.png',
+            iconCls: Ext.baseCSSPrefix + 'btn-icon-16x16',
+            handler: Ext.Function.bind(me.onDiscoverButton, me, [ me ]),
+            scope: me
+        }]);
+        return items;
+    },
+
     onAddButton: function() {
         Ext.create('OMV.module.admin.storage.aoe.Target', {
             title: _('Add target'),
@@ -115,6 +130,16 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
                 params: {
                     uuid: record.get('uuid')
                 }
+            }
+        });
+    },
+
+    onDiscoverButton: function() {
+        OMV.Rpc.request({
+            scope: this,
+            rpcData: {
+                service: 'AOE',
+                method: 'doDiscover'
             }
         });
     }

@@ -44,7 +44,7 @@ class AOE extends BackendAbstract {
 		// - /dev/etherd/e<shelf>.<slot>p<partition>
 		// - /dev/etherd/e1.4
 		// - /dev/etherd/e1.4p2
-		$regex = "etherd\/e[0-9]+\.[0-9]+(p[0-9]+)*";
+		$regex = 'etherd\/e[0-9]+\.[0-9]+(p[0-9]+)*';
 		return $this->isTypeOfByName($deviceFile, $regex);
 	}
 
@@ -53,11 +53,11 @@ class AOE extends BackendAbstract {
 	}
 
 	function baseDeviceFile($deviceFile) {
-		return preg_replace("/(p\d+)$/", "", $deviceFile);
+		return preg_replace('/(p\d+)$/', '', $deviceFile);
 	}
 
 	function fsDeviceFile($deviceFile, $partition = 1) {
 		// E.g. /dev/etherd/e1.4p2
-		return sprintf("%sp%d", $deviceFile, $partition);
+		return sprintf('%sp%d', $deviceFile, $partition);
 	}
 }

@@ -6,6 +6,15 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 remove_action() {
+    # remove aoe module file
+    if [ -f /etc/modules-load.d/aoe.conf ]; then
+        rm /etc/modules-load.d/aoe.conf
+    fi
+
+    # remove unit files
+    find /etc/systemd/system/ -maxdepth 1 -name "aoe*.service" -delete
+    systemctl daemon-reload
+
     # Activate trigger to purge cached files.
     dpkg-trigger update-fixperms
 }

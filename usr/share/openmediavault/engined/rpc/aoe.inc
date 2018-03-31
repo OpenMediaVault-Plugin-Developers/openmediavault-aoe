@@ -21,27 +21,27 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
 {
     public function getName()
     {
-        return "AOE";
+        return 'AOE';
     }
 
     public function initialize()
     {
-        $this->registerMethod("getTargetList");
-        $this->registerMethod("getTarget");
-        $this->registerMethod("setTarget");
-        $this->registerMethod("deleteTarget");
-        $this->registerMethod("doDiscover");
+        $this->registerMethod('getTargetList');
+        $this->registerMethod('getTarget');
+        $this->registerMethod('setTarget');
+        $this->registerMethod('deleteTarget');
+        $this->registerMethod('doDiscover');
     }
 
     public function getTargetList($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.getlist");
+        $this->validateMethodParams($params, 'rpc.common.getlist');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->getAssoc("conf.service.aoe.target");
+        $objects = $db->getAssoc('conf.service.aoe.target');
         // Filter the result.
         return $this->applyFilter($objects, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
@@ -50,22 +50,22 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
     public function getTarget($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        $this->validateMethodParams($params, 'rpc.common.objectuuid');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        return $db->getAssoc("conf.service.aoe.target", $params['uuid']);
+        return $db->getAssoc('conf.service.aoe.target', $params['uuid']);
     }
 
     public function setTarget($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.aoe.settarget");
+        $this->validateMethodParams($params, 'rpc.aoe.settarget');
         // Prepare the configuration object.
-        $object = new \OMV\Config\ConfigObject("conf.service.aoe.target");
+        $object = new \OMV\Config\ConfigObject('conf.service.aoe.target');
         $object->setAssoc($params);
         // Set the configuration object.
         $isNew = $object->isNew();
@@ -78,12 +78,12 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
     public function deleteTarget($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        $this->validateMethodParams($params, 'rpc.common.objectuuid');
         // Delete the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.aoe.target", $params['uuid']);
+        $object = $db->get('conf.service.aoe.target', $params['uuid']);
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();
@@ -92,7 +92,7 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
     public function doDiscover($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        exec("aoe-discover", $output);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        exec('aoe-discover', $output);
     }
 }
