@@ -1,6 +1,6 @@
 [{
 	"type": "rpc",
-	"id": "rpc.snapraid.settarget",
+	"id": "rpc.aoe.settarget",
 	"params": {
 		"type": "object",
 		"properties": {

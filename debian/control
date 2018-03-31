@@ -9,7 +9,7 @@ XB-Plugin-Section: filesystems
 Package: openmediavault-aoe
 Architecture: all
 Depends: aoetools,
-         vblade
+         vblade,
          openmediavault (>= 4.1.2),
          ${misc:Depends}
 Description: ATA-over-ethernet plugin for OpenMediaVault
