@@ -31,6 +31,7 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         'OMV.module.admin.storage.aoe.Target'
     ],
 
+    hideEditButton: true,
     hidePagingToolbar: false,
     reloadOnActivate: true,
 
@@ -104,28 +105,13 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         }).show();
     },
 
-    onEditButton: function() {
-        var record = this.getSelected();
-
-        Ext.create('OMV.module.admin.storage.aoe.Target', {
-            title: _('Edit target'),
-            uuid: record.get('uuid'),
-            listeners: {
-                scope: this,
-                submit: function() {
-                    this.doReload();
-                }
-            }
-        }).show();
-    },
-
     doDeletion: function(record) {
         OMV.Rpc.request({
             scope: this,
             callback: this.onDeletion,
             rpcData: {
                 service: 'AOE',
-                method: 'delete',
+                method: 'deleteTarget',
                 params: {
                     uuid: record.get('uuid')
                 }

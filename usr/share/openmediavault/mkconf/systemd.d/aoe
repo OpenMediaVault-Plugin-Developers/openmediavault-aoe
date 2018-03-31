@@ -3,8 +3,8 @@
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
 # @author    OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-# @copyright Copyright (c) 2009-2013 Volker Theile
-# @copyright Copyright (c) 2013-2017 OpenMediaVault Plugin Developers
+# @copyright Copyright (c) 2009-2018 Volker Theile
+# @copyright Copyright (c) 2013-2018 OpenMediaVault Plugin Developers
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,14 +30,13 @@ XPATH="/config/services/aoe"
 # Create target services
 index=$(omv_config_get_count "${XPATH}/targets/target")
 while [ ${index} -gt 0 ]; do
-
-    # Get the shared folder reference and path
     shelf=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/shelf")
     slot=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/slot")
     netif=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/netif")
     filename=$(omv_config_get "${XPATH}/targets/target[position()=${index}]/filename")
+    service="${SYSTEMD_DIR}/aoe-${shelf}-${slot}.service"
 
-    cat > ${SYSTEMD_DIR}/aoe-${shelf}-${slot}.service << EOF
+    cat > ${service} << EOF
 [Unit]
 Description=ata over ethernet target for ${shelf} ${slot}
 After=network.target
@@ -48,15 +47,8 @@ ExecStart=/usr/sbin/vbladed ${shelf} ${slot} ${netif} ${filename}
 RemainAfterExit=true
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=local-fs.target
 EOF
 
     index=$(( ${index} - 1 ))
-
-    systemctl daemon-reload
-
-    systemctl enable ${SYSTEMD_DIR}/aoe-${shelf}-${slot}.service
-    systemctl start ${SYSTEMD_DIR}/aoe-${shelf}-${slot}.service
 done
-
-exit 0
