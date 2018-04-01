@@ -80,7 +80,7 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
                     type: 'rpc',
                     rpcData: {
                         service: 'Network',
-                        method: 'getEthernetCandidates'
+                        method: 'getInterfaceList'
                     }
                 },
                 sorters: [{
