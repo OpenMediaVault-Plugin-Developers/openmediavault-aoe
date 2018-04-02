@@ -42,10 +42,10 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
             xtype: 'numberfield',
             name: 'shelf',
             fieldLabel: _('Shelf'),
-            minValue: 1,
+            minValue: 0,
             allowDecimals: false,
             allowBlank: false,
-            value: 1,
+            value: 0,
             plugins: [{
                 ptype: 'fieldinfo',
                 text: _('This should be the shelf address (major AoE address) of the AoE device to create.')
@@ -54,10 +54,10 @@ Ext.define('OMV.module.admin.storage.aoe.Target', {
             xtype: 'numberfield',
             name: 'slot',
             fieldLabel: _('Slot'),
-            minValue: 1,
+            minValue: 0,
             allowDecimals: false,
             allowBlank: false,
-            value: 1,
+            value: 0,
             plugins: [{
                 ptype: 'fieldinfo',
                 text: _('This should be the slot address (minor AoE address) of the AoE device to create.')
