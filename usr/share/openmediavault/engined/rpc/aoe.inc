@@ -30,6 +30,7 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('getTarget');
         $this->registerMethod('setTarget');
         $this->registerMethod('deleteTarget');
+        $this->registerMethod('getInitiatorList');
         $this->registerMethod('doDiscover');
     }
 
@@ -103,6 +104,31 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();
+    }
+
+    public function getInitiatorList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Get output of aoe-stat
+        $cmd = new \OMV\System\Process('aoe-stat');
+        $cmd->execute($output);
+        file_put_contents('/tmp/aoe-stat_output', $output);
+        $initiators = [];
+        foreach ($output as $line) {
+            $pieces = preg_split('/\s+/', $line);
+            $initiators[] = [
+                'devname' => $pieces[1],
+                'devsize' => $pieces[2],
+                'nic'     => $pieces[3],
+                'payload' => $pieces[4],
+                'status'  => $pieces[5]
+            ];
+
+        }
+        // Filter result
+        return $this->applyFilter($initiators, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
     }
 
     public function doDiscover($params, $context)

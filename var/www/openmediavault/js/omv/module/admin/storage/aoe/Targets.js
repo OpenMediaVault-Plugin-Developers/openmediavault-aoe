@@ -84,21 +84,6 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
         }
     }),
 
-    getTopToolbarItems : function() {
-        var me = this;
-        var items = me.callParent(arguments);
-
-        Ext.Array.insert(items, 3, [{
-            xtype: 'button',
-            text: _('Discover'),
-            icon: 'images/search.png',
-            iconCls: Ext.baseCSSPrefix + 'btn-icon-16x16',
-            handler: Ext.Function.bind(me.onDiscoverButton, me, [ me ]),
-            scope: me
-        }]);
-        return items;
-    },
-
     onAddButton: function() {
         Ext.create('OMV.module.admin.storage.aoe.Target', {
             title: _('Add target'),
@@ -122,16 +107,6 @@ Ext.define('OMV.module.admin.storage.aoe.Targets', {
                 params: {
                     uuid: record.get('uuid')
                 }
-            }
-        });
-    },
-
-    onDiscoverButton: function() {
-        OMV.Rpc.request({
-            scope: this,
-            rpcData: {
-                service: 'AOE',
-                method: 'doDiscover'
             }
         });
     }
