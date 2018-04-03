@@ -76,6 +76,19 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
                     $params['shelf'], $params['slot']
                 );
         }
+        // Verify that shelf and slot are not in use on a different system
+        $cmdArgs = sprintf('aoe-stat | grep -q "e%d.%d"',
+            $params['shelf'], $params['slot']
+        );
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $cmd->execute($output, $result);
+        if ($result == 0) {
+            throw new \OMV\Exception(
+                "Shelf %d: Slot %d already in use on a different system.",
+                $params['shelf'], $params['slot']
+            );
+        }
         // Verify that file exists
         if (!file_exists($params['filename'])) {
             throw new \OMV\Exception(
@@ -86,6 +99,12 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject('conf.service.aoe.target');
         $object->setAssoc($params);
+        // verify the filename is unique
+        $isNew = $object->isNew();
+        if (TRUE === $isNew) {
+            // Check uniqueness - filename
+            $db->assertIsUnique($object, 'filename');
+        }
         // Set the configuration object.
         $db->set($object);
         // Return the configuration object.
@@ -113,7 +132,6 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         // Get output of aoe-stat
         $cmd = new \OMV\System\Process('aoe-stat');
         $cmd->execute($output);
-        file_put_contents('/tmp/aoe-stat_output', $output);
         $initiators = [];
         foreach ($output as $line) {
             $pieces = preg_split('/\s+/', $line);
