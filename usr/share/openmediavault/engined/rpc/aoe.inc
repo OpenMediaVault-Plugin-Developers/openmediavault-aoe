@@ -31,7 +31,7 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('setTarget');
         $this->registerMethod('deleteTarget');
         $this->registerMethod('getInitiatorList');
-        $this->registerMethod('doDiscover');
+        $this->registerMethod('doCommand');
     }
 
     public function getTargetList($params, $context)
@@ -149,10 +149,14 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir']);
     }
 
-    public function doDiscover($params, $context)
+    public function doCommand($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
-        exec('aoe-discover', $output);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, 'rpc.aoe.docommand');
+        // Execute command
+        $cmd = new \OMV\System\Process($params['command']);
+        $cmd->execute($output);
     }
 }

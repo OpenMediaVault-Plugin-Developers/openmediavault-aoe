@@ -35,4 +35,19 @@
 			}
 		}
 	}
+},{
+	"type": "rpc",
+	"id": "rpc.aoe.docommand",
+	"params": {
+		"type": "object",
+		"properties": {
+			"command": {
+				"type": "string",
+				"enum": [
+					"aoe-discover","aoe-flush"
+				],
+				"required": true
+			}
+		}
+	}
 }]

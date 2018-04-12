@@ -112,26 +112,45 @@ Ext.define('OMV.module.admin.storage.aoe.Initiators', {
             text: _('Discover'),
             icon: 'images/search.png',
             iconCls: Ext.baseCSSPrefix + 'btn-icon-16x16',
-            handler: Ext.Function.bind(me.onDiscoverButton, me, [ me ]),
+            handler: Ext.Function.bind(me.onCommandButton, me, [ 'aoe-discover' ]),
+            scope: me
+        },{
+            id: me.getId() + '-flush',
+            xtype: 'button',
+            text: _('Flush'),
+            icon: 'images/eject.png',
+            iconCls: Ext.baseCSSPrefix + 'btn-icon-16x16',
+            handler: Ext.Function.bind(me.onCommandButton, me, [ 'aoe-flush' ]),
             scope: me
         }]);
         return items;
     },
 
-    onDiscoverButton: function() {
+    onCommandButton: function(cmd) {
         var me = this;
+        var msg = '';
+        
+        switch (cmd) {
+            case 'aoe-discover':
+                msg = _('Discover Aoe targets ...');
+                break;
+            case 'aoe-flush':
+                msg = _('Flushing downed Aoe targets ...');
+                break;                
+        }
 
-        OMV.MessageBox.wait(null, _('Discovering AoE targets ...'));
         OMV.Rpc.request({
             scope: me,
             relayErrors: false,
             rpcData: {
                 service: 'AOE',
-                method: 'doDiscover'
+                method: 'doCommand',
+                params: {
+                    'command' : cmd
+                }                
             },
             success: function(id, success, response) {
                 me.doReload();
-                OMV.MessageBox.hide();
             }
         });
     }
