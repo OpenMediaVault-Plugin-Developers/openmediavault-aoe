@@ -128,17 +128,6 @@ Ext.define('OMV.module.admin.storage.aoe.Initiators', {
 
     onCommandButton: function(cmd) {
         var me = this;
-        var msg = '';
-        
-        switch (cmd) {
-            case 'aoe-discover':
-                msg = _('Discover Aoe targets ...');
-                break;
-            case 'aoe-flush':
-                msg = _('Flushing downed Aoe targets ...');
-                break;                
-        }
-
         OMV.Rpc.request({
             scope: me,
             relayErrors: false,
@@ -147,7 +136,7 @@ Ext.define('OMV.module.admin.storage.aoe.Initiators', {
                 method: 'doCommand',
                 params: {
                     'command' : cmd
-                }                
+                }
             },
             success: function(id, success, response) {
                 me.doReload();
