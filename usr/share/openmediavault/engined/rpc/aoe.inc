@@ -131,6 +131,7 @@ class OMVRpcServiceAoe extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Get output of aoe-stat
         $cmd = new \OMV\System\Process('aoe-stat');
+        $cmd->setQuiet(true);
         $cmd->execute($output);
         $initiators = [];
         foreach ($output as $line) {
