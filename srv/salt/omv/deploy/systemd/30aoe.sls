@@ -32,18 +32,17 @@ configure_aoe_{{ target.shelf }}_{{ target.slot }}_service_unit_file:
     - contents: |
         {{ pillar['headers']['auto_generated'] }}
         {{ pillar['headers']['warning'] }}
-[Unit]
-Description=ata over ethernet target for {{ target.shelf }} {{ target.slot }}
-After=network.target
+        [Unit]
+        Description=ata over ethernet target for {{ target.shelf }} {{ target.slot }}
+        After=network.target
 
-[Service]
-Type=oneshot
-{{ 'Update' if files else 'Continue' }}
-ExecStart=/usr/sbin/vbladed {{ '-d ' if target.direct }}{{ '-s ' if target.sync }}{{ target.shelf }} {{ target.slot }} {{ target.netif }} {{ target.filename }}
-RemainAfterExit=true
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/sbin/vbladed {{ '-d ' if target.direct else '' }}{{ '-s ' if target.sync else '' }}{{ target.shelf }} {{ target.slot }} {{ target.netif }} {{ target.filename }}
+        RemainAfterExit=true
 
-[Install]
-WantedBy=local-fs.target
+        [Install]
+        WantedBy=local-fs.target
     - user: root
     - group: root
     - mode: 644
