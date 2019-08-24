@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (C) 2009-2018 Volker Theile <volker.theile@openmediavault.org>
- * Copyright (C) 2013-2018 OpenMediaVault Plugin Developers
+ * Copyright (C) 2013-2019 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 <?php
 /**
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
- * @copyright Copyright (c) 2018 OpenMediaVault Plugin Developers
+ * @copyright Copyright (c) 2019 OpenMediaVault Plugin Developers
  * @author    Volker Theile <volker.theile@openmediavault.org>
  * @copyright Copyright (c) 2009-2018 Volker Theile
  *

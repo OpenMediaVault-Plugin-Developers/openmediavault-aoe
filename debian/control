@@ -10,6 +10,6 @@ Package: openmediavault-aoe
 Architecture: all
 Depends: aoetools,
          vblade,
-         openmediavault (>= 4.1.2),
+         openmediavault (>= 5.0.5),
          ${misc:Depends}
 Description: ATA-over-ethernet plugin for OpenMediaVault
